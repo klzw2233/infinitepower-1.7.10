@@ -3,18 +3,18 @@
 	"modList": [{
 		"modid": "${modId}",
 		"name": "${modName}",
-		"description": "An example mod for Minecraft 1.7.10 with Forge focused on a stable setup.",
+		"description": "A GT6 sub-mod that provides unlimited energy",
 		"version": "${modVersion}",
 		"mcversion": "${minecraftVersion}",
-		"url": "https://github.com/SinTh0r4s/MyMod",
+		"url": "https://github.com/klzw2233/infinitepower-1.7.10",
 		"updateUrl": "",
-		"authorList": ["SinTho0r4s"],
+		"authorList": ["klzw2233"],
 		"credits": "",
-		"logoFile": "",
+		"logoFile": "logo.png",
 		"screenshots": [],
 		"parent": "",
 		"requiredMods": [],
-		"dependencies": [],
+		"dependencies": ["gregtech6@[6.15.00,)",],
 		"dependants": [],
 		"useDependencyInformation": false
 	}]
