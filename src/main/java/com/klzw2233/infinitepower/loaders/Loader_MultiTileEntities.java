@@ -2,7 +2,10 @@ package com.klzw2233.infinitepower.loaders;
 
 import static gregapi.data.CS.*;
 
+import gregapi.block.MaterialScoopable;
+import gregapi.oredict.OreDictMaterial;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
 
 import com.klzw2233.infinitepower.tileentity.TileInfinitePower;
@@ -15,77 +18,38 @@ import gregapi.util.UT;
 
 public class Loader_MultiTileEntities implements Runnable {
 
-    // 外壳方块引用（实际项目中应在初始化时用 MultiTileEntityBlock.getOrCreate 创建）
-    MultiTileEntityBlock aMachine = MultiTileEntityBlock.getOrCreate(
-        MD.GT.mID,
-        "machine",
-        MaterialMachines.instance,
-        Block.soundTypeMetal,
-        TOOL_wrench,
-        0,
-        0,
-        15,
-        F,
-        F);
-
     @Override
     public void run() {
-        // 获取或创建注册表（命名空间建议用你的modid）
-        MultiTileEntityRegistry aRegistry = MultiTileEntityRegistry.getRegistry("ip.multitileentity");
+        MultiTileEntityRegistry aRegistry = MultiTileEntityRegistry.getRegistry("gt.multitileentity");
 
-        // 调用注册方法
-        registerDynamos(aRegistry, aMachine);
+        MultiTileEntityBlock
+            aMetal      = MultiTileEntityBlock.getOrCreate(MD.GT.mID, "iron"         , Material.iron             , Block.soundTypeMetal, TOOL_pickaxe, 0, 0, 15, F, F)
+        , aMetalChips = MultiTileEntityBlock.getOrCreate(MD.GT.mID, "iron"         , Material.iron             , Block.soundTypeMetal, TOOL_shovel , 0, 0, 15, F, F)
+        , aMetalWires = MultiTileEntityBlock.getOrCreate(MD.GT.mID, "machine"      , MaterialMachines.instance , Block.soundTypeMetal, TOOL_cutter , 0, 0, 15, F, F)
+        , aMachine    = MultiTileEntityBlock.getOrCreate(MD.GT.mID, "machine"      , MaterialMachines.instance , Block.soundTypeMetal, TOOL_wrench , 0, 0, 15, F, F)
+        , aWooden     = MultiTileEntityBlock.getOrCreate(MD.GT.mID, "wood"         , Material.wood             , Block.soundTypeWood , TOOL_axe    , 0, 0, 15, F, F)
+        , aBush       = MultiTileEntityBlock.getOrCreate(MD.GT.mID, "leaves"       , Material.leaves           , Block.soundTypeGrass, TOOL_axe    , 0, 0, 15, F, F)
+        , aStone      = MultiTileEntityBlock.getOrCreate(MD.GT.mID, "rock"         , Material.rock             , Block.soundTypeStone, TOOL_pickaxe, 0, 0, 15, F, F)
+        , aWool       = MultiTileEntityBlock.getOrCreate(MD.GT.mID, "cloth"        , Material.cloth            , Block.soundTypeCloth, TOOL_shears , 0, 0, 15, F, F)
+        , aTNT        = MultiTileEntityBlock.getOrCreate(MD.GT.mID, "tnt"          , Material.tnt              , Block.soundTypeGrass, TOOL_pickaxe, 0, 0, 15, F, F)
+        , aUtilMetal  = MultiTileEntityBlock.getOrCreate(MD.GT.mID, "redstoneLight", Material.redstoneLight    , Block.soundTypeMetal, TOOL_pickaxe, 0, 0, 15, F, F)
+        , aUtilStone  = MultiTileEntityBlock.getOrCreate(MD.GT.mID, "redstoneLight", Material.redstoneLight    , Block.soundTypeStone, TOOL_pickaxe, 0, 0, 15, F, F)
+        , aUtilWood   = MultiTileEntityBlock.getOrCreate(MD.GT.mID, "redstoneLight", Material.redstoneLight    , Block.soundTypeWood , TOOL_axe    , 0, 0, 15, F, F)
+        , aUtilWool   = MultiTileEntityBlock.getOrCreate(MD.GT.mID, "redstoneLight", Material.redstoneLight    , Block.soundTypeCloth, TOOL_shears , 0, 0, 15, F, F)
+        , aHive       = MultiTileEntityBlock.getOrCreate(MD.GT.mID, "rock"         , MaterialScoopable.instance, Block.soundTypeWood , TOOL_scoop  , 0, 0, 15, F, F)
+        ;
+
+        registerDynamos(aRegistry, aMetal, aMetalChips, aMetalWires, aMachine, aWooden, aBush, aStone, aWool, aTNT, aHive, aUtilMetal, aUtilStone, aUtilWood, aUtilWool, MT.NULL, null);
+
     }
 
     /**
      * 注册发电机类机器
      */
-    private static void registerDynamos(MultiTileEntityRegistry aRegistry, MultiTileEntityBlock aMachine) {
-        Class<? extends TileEntity> aClass;
+    private static void registerDynamos(MultiTileEntityRegistry aRegistry, MultiTileEntityBlock aMetal, MultiTileEntityBlock aMetalChips, MultiTileEntityBlock aMetalWires, MultiTileEntityBlock aMachine, MultiTileEntityBlock aWooden, MultiTileEntityBlock aBush, MultiTileEntityBlock aStone, MultiTileEntityBlock aWool, MultiTileEntityBlock aTNT, MultiTileEntityBlock aHive, MultiTileEntityBlock aUtilMetal, MultiTileEntityBlock aUtilStone, MultiTileEntityBlock aUtilWood, MultiTileEntityBlock aUtilWool, OreDictMaterial aMat, Class<? extends TileEntity> aClass) {
+
         aClass = TileInfinitePower.class;
+        aMat = MT.DATA.Electric_T[1];   aRegistry.add("Infinite Power ("+VN[1]+")", "Dynamos", 10111, 10111, aClass, aMat.mToolQuality, 16, aMachine, UT.NBT.make(NBT_MATERIAL, aMat, NBT_HARDNESS,   4.0F, NBT_RESISTANCE,   4.0F, NBT_INPUT,   32, NBT_OUTPUT,   327868, NBT_WASTE_ENERGY, T, NBT_ENERGY_ACCEPTED, TD.Energy.RU, NBT_ENERGY_EMITTED, TD.Energy.EU), "TGT", "CMC", "TId", 'M', OP.casingMachineDouble.dat(aMat), 'T', OP.screw.dat(aMat), 'G', OP.gearGt.dat(aMat), 'I', OP.stickLong.dat(MT.IronMagnetic), 'C', OP.wireGt01.dat(ANY.Cu));
 
-        // 这里用 LV 材质作为示例
-        var aMat = MT.DATA.Electric_T[1];
-
-        aRegistry.add(
-            "Infinite Power Dynamo (" + VN[1] + ")", // 显示名称
-            "Dynamos", // 分类
-            101,
-            101, // 图标索引
-            aClass, // TileEntity 类
-            aMat.mToolQuality, // 工具等级
-            16, // 最大堆叠
-            aMachine, // 外壳方块
-            UT.NBT.make( // NBT 属性
-                NBT_MATERIAL,
-                aMat,
-                NBT_HARDNESS,
-                4.0F,
-                NBT_RESISTANCE,
-                4.0F,
-                NBT_INPUT,
-                32,
-                NBT_OUTPUT,
-                32768,
-                NBT_WASTE_ENERGY,
-                T,
-                NBT_ENERGY_ACCEPTED,
-                TD.Energy.RU,
-                NBT_ENERGY_EMITTED,
-                TD.Energy.EU),
-            // 合成表
-            "TGT",
-            "CMC",
-            "TId",
-            'M',
-            OP.casingMachineDouble.dat(aMat),
-            'T',
-            OP.screw.dat(aMat),
-            'G',
-            OP.gearGt.dat(aMat),
-            'I',
-            OP.stickLong.dat(MT.IronMagnetic),
-            'C',
-            OP.wireGt01.dat(ANY.Cu));
     }
 }
