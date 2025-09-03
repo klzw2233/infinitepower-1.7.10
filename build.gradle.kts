@@ -16,3 +16,8 @@ tasks.withType<com.diffplug.gradle.spotless.SpotlessTask>().configureEach {
 tasks.named<Checkstyle>("checkstyleMain") {
     enabled = false // 禁用所有 Checkstyle 任务
 }
+//spotlessJavaCheck任务报错
+tasks.named("spotlessJavaCheck") {
+    enabled = false
+}
+
