@@ -21,7 +21,7 @@ public class Loader_MultiTileEntities implements Runnable {
 
     @Override
     public void run() {
-        MultiTileEntityRegistry aRegistry = MultiTileEntityRegistry.getRegistry("gt.multitileentity");
+        MultiTileEntityRegistry aRegistry = MultiTileEntityRegistry.getRegistry("ip.multitileentity");
 
         MultiTileEntityBlock
             aMetal      = MultiTileEntityBlock.getOrCreate(MD.GT.mID, "iron"         , Material.iron             , Block.soundTypeMetal, TOOL_pickaxe, 0, 0, 15, F, F)
