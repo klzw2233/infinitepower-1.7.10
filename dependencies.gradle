@@ -36,6 +36,10 @@
 dependencies {
     //runtimeOnlyNonPublishable("com.github.GTNewHorizons:NotEnoughItems:2.7.69-GTNH:dev")
     api 'com.gregoriust.gregtech:gregtech_1.7.10:6.17.01:dev'
-    compileOnly files('libs/industrialcraft-2-2.2.827-experimental.jar')
-    compileOnly files('libs/appliedenergistics2-rv3-beta-249-GTNH.jar')
+    // compileOnly files('libs/industrialcraft-2-2.2.827-experimental.jar')
+    // compileOnly files('libs/appliedenergistics2-rv3-beta-249-GTNH.jar')
+
+    // copy from gregtech6
+    compileOnly 'appeng:appliedenergistics2:rv3-beta-6:dev'
+    compileOnly 'ic2:IC2Classic:1.2.1.8:dev'
 }
