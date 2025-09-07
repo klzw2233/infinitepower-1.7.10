@@ -1,5 +1,6 @@
 package com.klzw2233.infinitepower;
 
+import gregapi.block.multitileentity.MultiTileEntityRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -25,6 +26,9 @@ public class InfinitePowerMod {
     public static final String MODNAME = "Infinite Power";
     public static final Logger LOG = LogManager.getLogger(MODID);
 
+    // 自定义注册表实例
+    public static MultiTileEntityRegistry InfinitePower_REGISTRY;
+
     @SidedProxy(clientSide = ModConstants.CLIENT_PROXY, serverSide = ModConstants.COMMON_PROXY)
     public static CommonProxy proxy;
 
@@ -32,7 +36,14 @@ public class InfinitePowerMod {
     // preInit "Run before anything else. Read your config, create blocks, items, etc, and register them with the
     // GameRegistry." (Remove if not needed)
     public void preInit(FMLPreInitializationEvent event) {
+
         proxy.preInit(event);
+
+        // 初始化注册表，内部名称建议使用 "modid.multitileentity" 格式
+        InfinitePower_REGISTRY = new MultiTileEntityRegistry("ip.multitileentity");
+
+        // 可选：自定义基础方块（若不需要默认方块，可指定自定义 MultiTileEntityBlock）
+        // 若需自定义物品渲染器（客户端）
     }
 
     @Mod.EventHandler
@@ -41,6 +52,7 @@ public class InfinitePowerMod {
 
         proxy.init(event);
 
+        // 加载器注册多实体
         new Loader_MultiTileEntities().run();
     }
 
