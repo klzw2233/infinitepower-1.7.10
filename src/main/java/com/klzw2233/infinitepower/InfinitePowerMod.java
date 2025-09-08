@@ -20,7 +20,7 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent;
     version = Tags.VERSION,
     name = InfinitePowerMod.MODNAME,
     acceptedMinecraftVersions = "[1.7.10]",
-    dependencies="require-after:gregapi,before:gregapi_post")
+    dependencies = "require-after:gregapi_post")
 public class InfinitePowerMod {
 
     public static final String MODID = "infinitepower";
