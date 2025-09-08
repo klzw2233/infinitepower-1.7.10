@@ -24,7 +24,7 @@ public class Loader_MultiTileEntities implements Runnable {
     public void run() {
         // 虽然GregT强烈建议新建注册表，但是我用新的 ip.multitileentity，能够编译但是会在加载游戏时崩溃
         // 直接用get方法只能获取已有的注册表，没有新建ip注册表会报错
-        MultiTileEntityRegistry aRegistry = InfinitePowerMod.InfinitePower_REGISTRY;
+        MultiTileEntityRegistry aRegistry = MultiTileEntityRegistry.getRegistry("ip.multitileentity");
 
         MultiTileEntityBlock
             aMetal      = MultiTileEntityBlock.getOrCreate(MD.GT.mID, "iron"         , Material.iron             , Block.soundTypeMetal, TOOL_pickaxe, 0, 0, 15, F, F)

@@ -27,7 +27,8 @@ public class InfinitePowerMod {
     public static final Logger LOG = LogManager.getLogger(MODID);
 
     // 自定义注册表实例
-    public static MultiTileEntityRegistry InfinitePower_REGISTRY;
+    // MultiTileEntity 注册表必须在预加载阶段（Preload Phase）初始化，且不得提前初始化，因为它依赖于一个 ItemBlock 实例的创建！
+    // public static MultiTileEntityRegistry InfinitePower_REGISTRY;
 
     @SidedProxy(clientSide = ModConstants.CLIENT_PROXY, serverSide = ModConstants.COMMON_PROXY)
     public static CommonProxy proxy;
@@ -40,7 +41,7 @@ public class InfinitePowerMod {
         proxy.preInit(event);
 
         // 初始化注册表，内部名称建议使用 "modid.multitileentity" 格式
-        InfinitePower_REGISTRY = new MultiTileEntityRegistry("ip.multitileentity");
+        MultiTileEntityRegistry InfinitePower_REGISTRY = new MultiTileEntityRegistry("ip.multitileentity");
 
         // 可选：自定义基础方块（若不需要默认方块，可指定自定义 MultiTileEntityBlock）
         // 若需自定义物品渲染器（客户端）
