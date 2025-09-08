@@ -2,7 +2,6 @@ package com.klzw2233.infinitepower.loaders;
 
 import static gregapi.data.CS.*;
 
-import com.klzw2233.infinitepower.InfinitePowerMod;
 import gregapi.block.MaterialScoopable;
 import gregapi.oredict.OreDictMaterial;
 import net.minecraft.block.Block;
